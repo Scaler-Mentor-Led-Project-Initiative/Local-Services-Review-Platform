@@ -1,5 +1,6 @@
 package com.review.reviewservice.models;
 
+import com.review.reviewservice.dtos.RatingType;
 import com.review.reviewservice.dtos.ServiceType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,10 +16,11 @@ public class LocalBusiness {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-    private String service_name;
+    private String serviceName;
     @Enumerated(EnumType.STRING)
-    private ServiceType service_type;
+    private ServiceType serviceType;
     private String city;
-
+    @Enumerated(EnumType.STRING)
+    private RatingType rating;
 
 }

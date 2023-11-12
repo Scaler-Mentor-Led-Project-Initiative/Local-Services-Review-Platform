@@ -10,8 +10,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ServiceDTO {
-    private String service_name;
-    private ServiceType service_type;
+    private String serviceName;
+    private ServiceType serviceType;
     private String city;
+    private RatingType rating;
 
 }

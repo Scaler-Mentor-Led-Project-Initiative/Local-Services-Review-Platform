@@ -1,6 +1,8 @@
 package com.review.reviewservice.controllers;
 
+import com.review.reviewservice.dtos.RatingType;
 import com.review.reviewservice.dtos.ServiceDTO;
+import com.review.reviewservice.dtos.ServiceType;
 import com.review.reviewservice.models.LocalBusiness;
 import com.review.reviewservice.services.LocalBusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,15 @@ public class ServiceController {
     @Autowired
     LocalBusinessService localBusinessService;
     @GetMapping()
-    public List<ServiceDTO> getServiceDetails(){
+    public List<ServiceDTO> getServiceDetails(@RequestParam(required = false) String name,
+                                              @RequestParam(required = false)ServiceType type,
+                                              @RequestParam (required = false)RatingType ratingType){
+        if(name != null)
+            return localBusinessService.getByServiceName(name);
+        if(type != null)
+            return localBusinessService.getByServiceType(type);
+        if(ratingType != null)
+            return localBusinessService.getByServiceRating(ratingType);
         return localBusinessService.getServices();
     }
 
@@ -30,6 +40,8 @@ public class ServiceController {
         return new ResponseEntity(serviceDTO, HttpStatus.OK);
 
     }
+
+
 
     @PostMapping()
     public LocalBusiness addServices(@RequestBody ServiceDTO service_details){

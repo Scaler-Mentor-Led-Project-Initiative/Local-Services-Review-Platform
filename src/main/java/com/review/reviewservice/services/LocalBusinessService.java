@@ -1,6 +1,8 @@
 package com.review.reviewservice.services;
 
+import com.review.reviewservice.dtos.RatingType;
 import com.review.reviewservice.dtos.ServiceDTO;
+import com.review.reviewservice.dtos.ServiceType;
 import com.review.reviewservice.models.LocalBusiness;
 import com.review.reviewservice.repositories.LocalBusinessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +20,16 @@ public class LocalBusinessService {
 
     public LocalBusiness addServices(ServiceDTO serviceDTO){
         LocalBusiness localBusiness = new LocalBusiness();
-        localBusiness.setService_name(serviceDTO.getService_name());
+        localBusiness.setServiceName(serviceDTO.getServiceName());
         localBusiness.setCity(serviceDTO.getCity());
-        localBusiness.setService_type(serviceDTO.getService_type());
+        localBusiness.setServiceType(serviceDTO.getServiceType());
+        localBusiness.setRating(serviceDTO.getRating());
         return localBusinessRepository.save(localBusiness);
     }
 
     public List<ServiceDTO> getServices(){
         List<ServiceDTO> serviceDTOS = new ArrayList<>();
-        localBusinessRepository.findAll().stream().forEach(s -> serviceDTOS.add(new ServiceDTO(s.getService_name(),s.getService_type(),s.getCity())));
+        localBusinessRepository.findAll().stream().forEach(s -> serviceDTOS.add(new ServiceDTO(s.getServiceName(),s.getServiceType(),s.getCity(),s.getRating())));
         return serviceDTOS;
     }
 
@@ -38,8 +41,8 @@ public class LocalBusinessService {
         else
             localBusiness = localBusinessOptional.get();
 
-        localBusiness.setService_type(serviceDTO.getService_type());
-        localBusiness.setService_name(serviceDTO.getService_name());
+        localBusiness.setServiceType(serviceDTO.getServiceType());
+        localBusiness.setServiceName(serviceDTO.getServiceName());
         localBusiness.setCity(serviceDTO.getCity());
         return localBusinessRepository.save(localBusiness);
     }
@@ -58,9 +61,29 @@ public class LocalBusinessService {
             return null;
         else{
             LocalBusiness s = localBusinessOptional.get();
-            return new ServiceDTO(s.getService_name(),s.getService_type(),s.getCity());
+            return new ServiceDTO(s.getServiceName(),s.getServiceType(),s.getCity(),s.getRating());
         }
 
 
+    }
+
+    public List<ServiceDTO> getByServiceName(String service_name){
+        List<ServiceDTO> serviceDTOS = new ArrayList<>();
+        localBusinessRepository.findAllByServiceName(service_name).stream().forEach(s -> serviceDTOS.add(new ServiceDTO(s.getServiceName(),s.getServiceType(),s.getCity(),s.getRating())));
+        return serviceDTOS;
+
+    }
+
+    public List<ServiceDTO> getByServiceType(ServiceType type){
+        List<ServiceDTO> serviceDTOS = new ArrayList<>();
+        localBusinessRepository.findAllByServiceType(type).stream().forEach(s -> serviceDTOS.add(new ServiceDTO(s.getServiceName(),s.getServiceType(),s.getCity(),s.getRating())));
+        return serviceDTOS;
+
+    }
+
+    public List<ServiceDTO> getByServiceRating(RatingType ratingType){
+        List<ServiceDTO> serviceDTOS = new ArrayList<>();
+        localBusinessRepository.findAllByRating(ratingType).stream().forEach(s -> serviceDTOS.add(new ServiceDTO(s.getServiceName(),s.getServiceType(),s.getCity(),s.getRating())));
+        return serviceDTOS;
     }
 }
