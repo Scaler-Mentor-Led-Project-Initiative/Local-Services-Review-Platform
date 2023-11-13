@@ -29,7 +29,7 @@ public class LocalBusinessService {
 
     public List<ServiceDTO> getServices(){
         List<ServiceDTO> serviceDTOS = new ArrayList<>();
-        localBusinessRepository.findAll().stream().forEach(s -> serviceDTOS.add(new ServiceDTO(s.getServiceName(),s.getServiceType(),s.getCity(),s.getRating())));
+        localBusinessRepository.findAll().forEach(s -> serviceDTOS.add(new ServiceDTO(s.getServiceName(),s.getServiceType(),s.getCity(),s.getRating())));
         return serviceDTOS;
     }
 
@@ -69,21 +69,21 @@ public class LocalBusinessService {
 
     public List<ServiceDTO> getByServiceName(String service_name){
         List<ServiceDTO> serviceDTOS = new ArrayList<>();
-        localBusinessRepository.findAllByServiceName(service_name).stream().forEach(s -> serviceDTOS.add(new ServiceDTO(s.getServiceName(),s.getServiceType(),s.getCity(),s.getRating())));
+        localBusinessRepository.findAllByServiceName(service_name).forEach(s -> serviceDTOS.add(new ServiceDTO(s.getServiceName(),s.getServiceType(),s.getCity(),s.getRating())));
         return serviceDTOS;
 
     }
 
     public List<ServiceDTO> getByServiceType(ServiceType type){
         List<ServiceDTO> serviceDTOS = new ArrayList<>();
-        localBusinessRepository.findAllByServiceType(type).stream().forEach(s -> serviceDTOS.add(new ServiceDTO(s.getServiceName(),s.getServiceType(),s.getCity(),s.getRating())));
+        localBusinessRepository.findAllByServiceType(type).forEach(s -> serviceDTOS.add(new ServiceDTO(s.getServiceName(),s.getServiceType(),s.getCity(),s.getRating())));
         return serviceDTOS;
 
     }
 
     public List<ServiceDTO> getByServiceRating(RatingType ratingType){
         List<ServiceDTO> serviceDTOS = new ArrayList<>();
-        localBusinessRepository.findAllByRating(ratingType).stream().forEach(s -> serviceDTOS.add(new ServiceDTO(s.getServiceName(),s.getServiceType(),s.getCity(),s.getRating())));
+        localBusinessRepository.findAllByRating(ratingType).forEach(s -> serviceDTOS.add(new ServiceDTO(s.getServiceName(),s.getServiceType(),s.getCity(),s.getRating())));
         return serviceDTOS;
     }
 }
