@@ -29,6 +29,7 @@ public class LocalBusinessService {
 
     public List<ServiceDTO> getServices(){
         List<ServiceDTO> serviceDTOS = new ArrayList<>();
+
         localBusinessRepository.findAll().forEach(s -> serviceDTOS.add(new ServiceDTO(s.getServiceName(),s.getServiceType(),s.getCity(),s.getRating())));
         return serviceDTOS;
     }
@@ -66,6 +67,7 @@ public class LocalBusinessService {
 
 
     }
+
 
     public List<ServiceDTO> getByServiceName(String service_name){
         List<ServiceDTO> serviceDTOS = new ArrayList<>();
