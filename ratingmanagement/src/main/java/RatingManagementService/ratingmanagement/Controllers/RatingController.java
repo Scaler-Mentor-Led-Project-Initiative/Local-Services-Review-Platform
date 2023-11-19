@@ -27,6 +27,18 @@ public class RatingController {
 
     @DeleteMapping()
     public void deleteRating(@RequestParam long userId,@RequestParam long serviceId) {
+
+
         ratingServices.deleteRatingByUserIdAndServiceId(userId, serviceId);
+    }
+
+    @GetMapping("/average/{serviceId}")
+    public Double getAverageRating(@PathVariable long serviceId) {
+        return ratingServices.findAverageRatingByServiceId(serviceId);
+    }
+
+    @GetMapping("/count/{serviceId}")
+    public int getTotalNoOfRatings(@PathVariable long serviceId) {
+        return ratingServices.TotalNoOfRatingsByService(serviceId);
     }
 }

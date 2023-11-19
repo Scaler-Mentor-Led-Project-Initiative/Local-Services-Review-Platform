@@ -10,4 +10,8 @@ public interface RatingServices {
     void updateRatingByUserIdAndServiceId(long userId, long serviceId, Rating rating);
 
     void deleteRatingByUserIdAndServiceId(long userId, long serviceId);
+
+    Double findAverageRatingByServiceId(long serviceId);
+
+    int TotalNoOfRatingsByService(long serviceId);
 }

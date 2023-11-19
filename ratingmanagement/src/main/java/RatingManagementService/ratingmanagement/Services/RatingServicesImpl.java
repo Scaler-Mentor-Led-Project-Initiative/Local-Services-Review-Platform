@@ -1,6 +1,7 @@
 package RatingManagementService.ratingmanagement.Services;
 
 import RatingManagementService.ratingmanagement.Repositories.RatingRepository;
+import RatingManagementService.ratingmanagement.exceptions.RatingNotFoundException;
 import RatingManagementService.ratingmanagement.model.Rating;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,10 @@ public class RatingServicesImpl implements RatingServices{
 
 
         Rating existingRating = ratingRepository.findByUSerIdAndServiceId(userId,serviceId);
+
+        if(existingRating==null){
+            throw new RatingNotFoundException("Rating not found with userId "+userId+" and serviceId "+serviceId );
+        }
 
         if (existingRating != null) {
             // Update the fields with values from the request body
@@ -60,4 +65,15 @@ public class RatingServicesImpl implements RatingServices{
        ratingRepository.deleteBYUserIdAndServiceId(userId, serviceId);
         System.out.println("Rating deleted");
     }
+
+    @Override
+    public Double findAverageRatingByServiceId(long serviceId) {
+        return ratingRepository.getAverageRatingByServiceId(serviceId);
+    }
+
+    @Override
+    public int TotalNoOfRatingsByService(long serviceId) {
+        return ratingRepository.countRatingsByServiceIdEquals(serviceId);
+    }
+
 }
