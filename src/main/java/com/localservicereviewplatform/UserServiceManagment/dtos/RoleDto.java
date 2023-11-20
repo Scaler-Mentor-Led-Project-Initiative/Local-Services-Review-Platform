@@ -5,9 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LogoutRequestDto {
+public class RoleDto {
 
-    private Long userId;
-    private String sessionId;
-
+    String rolename;
 }
